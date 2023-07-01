@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#videoWrapper {
+    position: relative;
+    width: 100%; /* adjust as needed */
+    height: 100%; /* adjust as needed */
+    overflow: hidden;
+}
+
+#capture, #switch {
+    position: fixed;
+    bottom: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid black;
+}
+
+#capture {
+    left: calc(50% - 35px); /* Adjust as needed */
+}
+
+#switch {
+    left: calc(50% + 35px); /* Adjust as needed */
+    padding: 10px; /* Adjust as needed */
+}
+
+#switchIcon {
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+}
+
+#notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: yellow;
+    text-align: center;
+    display: none;
+    z-index: 1;
+}

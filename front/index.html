@@ -1,66 +1,20 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Photo Capture</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
-    <p id="result"></p>
-    <video id="video" width="640" height="480" autoplay></video>
-    <button id="snap">Snap Photo</button>
-    <canvas id="canvas" width="640" height="480"></canvas>
-    <button id="send">Send Photo</button>
-    <script>
-                // Grab elements, create settings, etc.
-        var video = document.getElementById('video');
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-        var snap = document.getElementById('snap');
-        var send = document.getElementById('send');
-
-        // Get access to the camera!
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
-        }
-
-        // Elements for taking the snapshot
-        snap.addEventListener("click", function() {
-            context.drawImage(video, 0, 0, 640, 480);
-        });
-
-        // Elements for sending the snapshot
-        send.addEventListener("click", function() {
-            canvas.toBlob(function(blob) {
-                sendPhotoToServer(blob);
-            }, 'image/png');
-        });
-
-        let resultElement = document.getElementById('result');
-        // Function to send a photo to the server
-        function sendPhotoToServer(photoData) {
-            // replace `your-server-url` with your server's URL
-            var serverUrl = 'https://192.168.1.8:5000/process';
-
-            // create a new FormData object, and append the photo data
-            let formData = new FormData();
-            formData.append('image', photoData);
-
-            console.log([...formData]);
-            // make a POST request with the photo data
-            fetch(serverUrl, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                resultElement.textContent = data.result;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
+    <div id="notification"></div>
+    <div id="videoWrapper">
+        <video id="video" autoplay></video>
+        <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+    <button id="capture" class="capture-button"></button>
+    <button id="switch">
+        <img src="switch_camera.png" alt="Switch Camera" id="switchIcon">
+    </button>
+    <script src="script.js"></script>
 </body>
 </html>
