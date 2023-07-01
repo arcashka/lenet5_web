@@ -3,7 +3,7 @@ let canvas = document.getElementById('canvas');
 let captureButton = document.getElementById('capture');
 let notification = document.getElementById('notification');
 let context = canvas.getContext('2d');
-let serverUrl = "https://192.168.1.8:5000/process";  // Modify this according to your setup
+let serverUrl = "/process";
 
 let currentStream;
 
@@ -82,6 +82,11 @@ function sendPhotoToServer() {
         let options = {
             method: 'POST',
             body: formData,
+            mode: 'cors',
+            credentials: 'same-origin',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
         };
         fetch(serverUrl, options)
             .then(response => response.json())

@@ -11,6 +11,10 @@ import lenet5
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
 @app.route('/process', methods=['POST'])
 def process_image():
     if 'image' not in request.files:
